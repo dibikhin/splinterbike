@@ -23,9 +23,7 @@
 	.ui-state-highlight { height: 100px; background-color: white; border: 2px dashed red; width: 100%; }
 </style>
 
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/scripts.js"></script>
+	
 </head>
 
 <body>
@@ -174,11 +172,11 @@
 				<div class="col-md-2 column">
 				</div>
 				<div class="col-md-8 column draggable ui-widget-header">
-					<h1 class="nodr" contenteditable="true">Around 1000 hours to&nbsp;design and construct</h1>
-					<p class="nodr" contenteditable="true">The SplinterBike forced me&nbsp;to&nbsp;employ timbers previously unused in&nbsp;my&nbsp;workshop 
+					<h1 class="nodr editme" >Around 1000 hours to&nbsp;design and construct</h1>
+					<p class="nodr editme" >The SplinterBike forced me&nbsp;to&nbsp;employ timbers previously unused in&nbsp;my&nbsp;workshop 
 						such as&nbsp;Lignum Vitae, a&nbsp;naturally self lubricating hardwood, which is&nbsp;included for bushings 
 						to&nbsp;minimise friction where one component turns in&nbsp;an&nbsp;opposing direction to&nbsp;another.</p>
-					<p class="nodr" contenteditable="true">Many years of&nbsp;woodworking experience have enabled me&nbsp;to&nbsp;make a&nbsp;bet 
+					<p class="nodr editme" id="zxcv" >Many years of&nbsp;woodworking experience have enabled me&nbsp;to&nbsp;make a&nbsp;bet 
 						with a&nbsp;friend and end up&nbsp;developing something that will ultimately set a&nbsp;land speed record
 						for wooden bicycles. It&rsquo;s a&nbsp;testament to&nbsp;the versatility and strength of&nbsp;one of&nbsp;mankind&rsquo;s 
 						oldest available materials... and of&nbsp;course, modern glue technology.</p>
@@ -304,16 +302,33 @@
 	</div>
 <!-- </footer> -->
 
-	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/scripts.js"></script>
 
-
-
-	<script>
+<script>
 	$(function() {
 		$( "#sortable" ).sortable({ placeholder: "ui-state-highlight" });
-		$(".draggable").draggable({ containment: "parent" });
+		$( ".draggable" )
+			.draggable({ containment: "parent" });
+		$( ".editme" ).each(function () {
+			var ths = this;
+			$( ths )
+				.dblclick(function() { 
+					$( ths ).prop("contentEditable", true); 
+					$( ths ).focus(); 
+					$( ".draggable" ).draggable({ cancel: ".nodr" });
+					$( "#sortable" ).sortable({ disabled: true });
+				})
+				.blur(function() { 
+					$( ths ).prop("contentEditable", false); 
+					$( ".draggable" ).draggable({ cancel: "" });
+					$( "#sortable" ).sortable({ disabled: false });
+				}); 
+		}); 
 	});  
-	</script>
+</script>
 
 </body>
 </html>
