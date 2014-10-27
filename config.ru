@@ -14,4 +14,3 @@ run lambda { |env|
     File.open('index.html', File::RDONLY)
   ]
 }
-
